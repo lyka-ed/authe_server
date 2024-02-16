@@ -38,15 +38,21 @@ function getBodyFromString(req) {
 }
 
 function authenticate(req, res, next) {
-  const { username, password } = req.body;
-  console.log("authenticate", req.body);
-  const user = findUser(username);
-  if (!user) {
-    res.statusCode = 403;
+  const { authorization } = req.headers;
+  if (!authorization) {
+    res.statusCode = 401;
     res.end();
     return;
   }
-  if (user.username !== username || user.password !== password) {
+  const encodedCredentials = authorization.split(" ")[1];
+  const decodedCredentials = Buffer.from(encodedCredentials, "base64").toString(
+    "utf-8"
+  );
+  const [username, password] = decodedCredentials.split(":");
+  console.log("authenticate", username, password);
+  const user = findUser(username);
+  console.log("user", user);
+  if (!user || user.password !== password) {
     res.statusCode = 403;
     res.end();
     return;
