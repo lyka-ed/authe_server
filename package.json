@@ -1,7 +1,7 @@
 {
   "name": "authentication",
   "version": "1.0.0",
-  "description": "autnentication and endpoints for books & authors",
+  "description": "authentication and endpoints for books & authors",
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
