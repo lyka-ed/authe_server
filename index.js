@@ -81,7 +81,7 @@ const server = http.createServer(async (req, res) => {
     if (req.url === "/books" && req.method === "DELETE") {
       deleteBooks(req, res);
     }
-    // authorControllers
+    // authorControllers endpoints
     if (req.url === "/authors" && req.method === "GET") {
       authenticate(req, res, getAuthors);
     }
